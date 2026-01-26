@@ -1,35 +1,50 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { icons } from "@/constants/icons";
+import { images } from "@/constants/images";
+import { Tabs } from "expo-router";
+import React from "react";
+import { Image, ImageBackground, Text } from "react-native";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+const _layout = () => {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+    <Tabs>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Home",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <>
+              <ImageBackground
+                source={images.highlight}
+                className="flex flex-row w-full flex-1 min-w-[112px] min-h-14 mt-4 justify-center items-center rounded-full overflow-hidden"
+              >
+                <Image
+                  source={icons.home}
+                  tintColor="#151312"
+                  className="size-5"
+                />
+                <Text className="text-secondary text-base font-semibold ml-2">
+                  Home
+                </Text>
+              </ImageBackground>
+            </>
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
+        name="search"
+        options={{ title: "Search", headerShown: false }}
+      />
+      <Tabs.Screen
+        name="saved"
+        options={{ title: "Saved", headerShown: false }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{ title: "Profile", headerShown: false }}
       />
     </Tabs>
   );
-}
+};
+
+export default _layout;
